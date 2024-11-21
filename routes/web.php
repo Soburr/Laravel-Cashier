@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -16,8 +17,10 @@ Route::view('pricing', 'pricing')
     ->middleware(['auth', 'verified'])
     ->name('pricing');
 
-Route::view('checkout', function () {
+Route::get('checkout/{plan?}', CheckoutController::class)->middleware(['auth', 'verified'])->name('checkout');
 
-})->middleware(['auth', 'verified'])->name('checkout');
+Route::view('success', 'success')
+    ->middleware(['auth', 'verified'])
+    ->name('success');
 
 require __DIR__.'/auth.php';
